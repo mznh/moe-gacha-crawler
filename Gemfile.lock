@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    date (3.3.3)
+    nokogiri (1.15.4-x86_64-linux)
+      racc (~> 1.4)
+    open-uri (0.3.0)
+      stringio
+      time
+      uri
+    racc (1.7.1)
+    sqlite3 (1.6.7-x86_64-linux)
+    stringio (3.0.8)
+    time (0.2.2)
+      date
+    uri (0.12.2)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  nokogiri
+  open-uri
+  sqlite3
+
+BUNDLED WITH
+   2.4.13

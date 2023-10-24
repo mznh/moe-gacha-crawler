@@ -5,6 +5,9 @@ require "bundler/setup"
 require "open-uri"
 require "nokogiri"
 require "kconv"
+require "time"
+
+require "./app/db.rb"
 
 
 
@@ -13,6 +16,7 @@ class MoEGachaCrawler
   attr_accessor :list
   def initialize()
     @list = []
+    @db = GachaDB.new()
   end
   def get_gacha_list(url = 'https://moepic.com/minigame/moegacha.php')
     gacha_list = []
@@ -20,7 +24,8 @@ class MoEGachaCrawler
     html = `curl -s https://moepic.com/minigame/moegacha.php`.toutf8
     page = Nokogiri::HTML(html)
     page.css('div[class=frame-moegacha]').each do |gacha_category|
-      gacha = Gacha.new()
+      gacha = Gacha.new(@db)
+      gacha.time = Time.now
       gacha_category.css('div[class=box-gacha-title]').each do |gacha_part|
         # タイトル取得
         gacha_part.css('ul > li[class=area-name] > span > p').each do |title|
@@ -40,6 +45,7 @@ class MoEGachaCrawler
           end
         end
       end
+      gacha.db_id = @db.insert_gacha(gacha.title, gacha.time, gacha.price).first["id"]
       gacha_list << gacha
     end
     @list = gacha_list
@@ -60,8 +66,9 @@ class MoEGachaCrawler
 end
 
 class Gacha
-  attr_accessor :title, :price, :lineup_url, :table, :premium_table
-  def initialize()
+  attr_accessor :title, :time, :price, :lineup_url, :table, :premium_table, :db_id
+  def initialize(db)
+    @db = db
   end
   # gachaのテーブルリストを返す。複数ある場合は10連用テーブルが存在
   def get_lineup(url = nil)
@@ -86,11 +93,21 @@ class Gacha
     end
     
     @table = table_list[0]
+    self.insert_table_to_db(@table,false)
     if table_list.length > 1 then 
       # 10連テーブルが存在
       @premium_table = table_list[1]
+      self.insert_table_to_db(@premium_table,true)
     end
   end
+  
+  def insert_table_to_db(table,is_premium)
+    prm_text = is_premium ? "true": "false"
+    table.each do|item|
+      @db.insert_item(@db_id, item.rank, item.name, item.count, item.probability, is_premium)
+    end
+  end
+
 
   def print()
     puts "タイトル：#{@title}"
@@ -117,5 +134,5 @@ end
 crawler = MoEGachaCrawler.new()
 crawler.get_gacha_list()
 crawler.get_all_gacha_lineup()
-crawler.print()
+#crawler.print()
 
