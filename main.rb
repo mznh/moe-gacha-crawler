@@ -9,6 +9,7 @@ require "kconv"
 
 
 class MoEGachaCrawler
+  WAIT_TIME = 0.6
   attr_accessor :list
   def initialize()
     @list = []
@@ -47,6 +48,7 @@ class MoEGachaCrawler
   def get_all_gacha_lineup()
     @list.each do|gacha|
       gacha.get_lineup()
+      sleep WAIT_TIME 
     end
   end
 
