@@ -3,5 +3,5 @@
 ```
 bundle install
 bundle update date
-bundle exec ruby main.rb
+bundle exec rake fetch
 ```
