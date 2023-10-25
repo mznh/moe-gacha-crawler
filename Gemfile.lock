@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     date (3.3.3)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     open-uri (0.3.0)
@@ -9,8 +11,19 @@ GEM
       time
       uri
     racc (1.7.1)
+    rack (2.2.8)
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
+    rake (13.0.6)
+    ruby2_keywords (0.0.5)
+    sinatra (3.1.0)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.1.0)
+      tilt (~> 2.0)
     sqlite3 (1.6.7-x86_64-linux)
     stringio (3.0.8)
+    tilt (2.3.0)
     time (0.2.2)
       date
     uri (0.12.2)
@@ -21,6 +34,8 @@ PLATFORMS
 DEPENDENCIES
   nokogiri
   open-uri
+  rake
+  sinatra
   sqlite3
 
 BUNDLED WITH
