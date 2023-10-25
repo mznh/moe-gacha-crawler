@@ -3,9 +3,9 @@ require 'sqlite3'
 
 
 class GachaDB 
-  @db
+  DATABASE_FILE_NAME = "db.sqlite3"
   def initialize
-    @db = SQLite3::Database.new("db.sqlite3")
+    @db = SQLite3::Database.new(DATABASE_FILE_NAME)
     @db.results_as_hash = true
   end
 
@@ -28,5 +28,10 @@ class GachaDB
     EOS
     @db.execute(query)
     @db.execute("select * from item where rowid = last_insert_rowid()")
+  end
+
+  def select_gacha(dt) # dt: "yyyy-mm-dd"
+    query = "select * from gacha where dt = \"#{dt}\""
+    @db.execute(query)
   end
 end
