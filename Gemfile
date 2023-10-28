@@ -8,3 +8,5 @@ gem "nokogiri"
 gem "open-uri"
 gem "sqlite3"
 gem "sinatra"
+gem "sinatra-contrib"
+gem 'haml'

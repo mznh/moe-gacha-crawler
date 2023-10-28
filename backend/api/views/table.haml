@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %title #{@title}!
+    %link{href: "/style.css", rel: "stylesheet"}
+  %body
+    %h1 Gacha table
+    %h2 #{@info["title"]} #{@info["price"]} 
+    %table
+      %tbody
+        - for item in @normal_table
+          %tr
+            %td #{item['rank']} 
+            %td #{item['name']}
+            %td #{item['count']} 
+            %td #{item['probability']}
+
+    %h2 10連目
+    %table
+      %tbody
+        - for item in @premium_table
+          %tr
+            %td #{item['rank']} 
+            %td #{item['name']}
+            %td #{item['count']} 
+            %td #{item['probability']}
+

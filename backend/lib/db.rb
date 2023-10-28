@@ -30,8 +30,41 @@ class GachaDB
     @db.execute("select * from item where rowid = last_insert_rowid()")
   end
 
-  def select_gacha(dt) # dt: "yyyy-mm-dd"
-    query = "select * from gacha where dt = \"#{dt}\""
+  def select_date_list() # dt: "yyyy-mm-dd"
+    query = "select distinct dt from gacha"
+    @db.execute(query)
+  end
+
+  def select_gacha_info(id) # dt: "yyyy-mm-dd"
+    query = "select * from gacha where id = \"#{id}\""
+    @db.execute(query).first
+  end
+
+  def select_gacha_list(dt) # dt: "yyyy-mm-dd"
+    query = <<-"EOS"
+      select 
+        * 
+      from 
+        gacha t1
+      inner join (
+        select distinct 
+          dt,
+          created_at as latest_time
+        from gacha 
+        where dt = "#{dt}" 
+        order by created_at desc 
+        limit 1
+      ) t2
+      on t1.dt = t2.dt 
+      where 
+        t1.dt = "#{dt}" and  
+        t1.created_at = t2.latest_time
+    EOS
+    @db.execute(query)
+  end
+
+  def select_gacha_table(gacha_id) # dt: "yyyy-mm-dd"
+    query = "select * from item where gacha_id = \"#{gacha_id}\""
     @db.execute(query)
   end
 end

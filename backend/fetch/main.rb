@@ -6,7 +6,7 @@ require "nokogiri"
 require "kconv"
 require "time"
 
-require "./src/lib/crawler.rb"
+require "./backend/lib/crawler.rb"
 
 crawler = MoEGachaCrawler.new()
 crawler.get_gacha_list()

@@ -6,7 +6,7 @@ require "nokogiri"
 require "kconv"
 require "time"
 
-require "./src/lib/db.rb"
+require "./backend/lib/db.rb"
 
 class MoEGachaCrawler
   WAIT_TIME = 0.6

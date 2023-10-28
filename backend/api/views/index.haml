@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title #{@title}!
+    %body
+      %h1 Date list
+      - for dt in @dt_list
+        %p 
+          %a{href: "/#{dt}"}
+            #{dt}
+

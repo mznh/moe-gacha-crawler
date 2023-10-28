@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
 
-require "./src/lib/crawler.rb"
+require "./backend/lib/crawler.rb"
 
 crawler = MoEGachaCrawler.new(single_mode = true)
 crawler.get_gacha_list()

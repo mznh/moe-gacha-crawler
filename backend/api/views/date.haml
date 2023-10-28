@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title #{@title}!
+    %body
+      %h1 Gacha list
+      - for gacha in @list
+        %a{href: "/gacha/#{gacha['id']}"}
+          %p #{gacha['id']} #{gacha['title']} #{gacha['price']} #{gacha['created_at']}
+

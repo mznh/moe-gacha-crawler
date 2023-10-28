@@ -1,10 +1,10 @@
 
 task :fetch do
-  ruby "src/fetch/main.rb"
+  ruby "backend/fetch/main.rb"
 end
 
 task :api do
-  ruby "src/api/main.rb"
+  ruby "backend/api/main.rb"
 end
 
 task :frontend do
@@ -14,11 +14,11 @@ end
 
 namespace :test do
   task :fetch do
-    ruby "src/test/crawler_test.rb"
+    ruby "backend/test/crawler_test.rb"
   end
 
   task :db do
-    ruby "src/test/db_test.rb"
+    ruby "backend/test/db_test.rb"
   end
 end
 
