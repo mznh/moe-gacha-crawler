@@ -7,6 +7,11 @@ task :api do
   ruby "backend/api/main.rb"
 end
 
+task :api_prod do
+  ENV["APP_ENV"] = "production"
+  ruby "backend/api/main.rb"
+end
+
 task :frontend do
   cd "frontend"
   sh "npm run start"
